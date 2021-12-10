@@ -31,6 +31,9 @@ const input = {
   VoiceId: "Joanna",
 };
 server.get("/", (req, res) => {
+  res.status(200).send("API is working");
+});
+server.get("/aws", (req, res) => {
   Polly.synthesizeSpeech(input, (err, data) => {
     if (err) {
       console.log(err);
