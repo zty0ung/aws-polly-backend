@@ -34,25 +34,24 @@ server.get("/", (req, res) => {
   res.status(200).send("API is working");
 });
 server.post("/", (req, res) => {
+  // Polly.synthesizeSpeech(input, (err, data) => {
+  //   if (err) {
+  //     console.log(err);
+  //     return;
+  //   }
+  //   if (data.AudioStream instanceof Buffer) {
+  //     fs.writeFile("hello.mp3", data.AudioStream, (fsErr) => {
+  //       if (fsErr) {
+  //         console.error(fsErr);
+  //         return;
+  //       }
+  //       console.log("Success");
+  //     });k
+  //   }
+  // });
+
   console.log(req.body);
   res.status(200).json(req.body);
-});
-server.get("/aws", (req, res) => {
-  Polly.synthesizeSpeech(input, (err, data) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    if (data.AudioStream instanceof Buffer) {
-      fs.writeFile("hello.mp3", data.AudioStream, (fsErr) => {
-        if (fsErr) {
-          console.error(fsErr);
-          return;
-        }
-        console.log("Success");
-      });
-    }
-  });
 });
 
 module.exports = server;
