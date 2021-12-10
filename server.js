@@ -33,6 +33,10 @@ const input = {
 server.get("/", (req, res) => {
   res.status(200).send("API is working");
 });
+server.post("/", (req, res) => {
+  console.log(req.body);
+  res.status(200).json(req.body);
+});
 server.get("/aws", (req, res) => {
   Polly.synthesizeSpeech(input, (err, data) => {
     if (err) {
