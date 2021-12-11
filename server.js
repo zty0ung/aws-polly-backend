@@ -25,30 +25,35 @@ server.use(function (req, res, next) {
 const Polly = new AWS.Polly({
   region: "us-east-1",
 });
-const input = {
-  Text: "John Douglas Russell, or J.D. for short, knows his way around a ranch. As a fifth-generation cattleman with Matador Cattle Company, he was practically born in the saddle. Even today, it's where he's most comfortable, relying on the instincts and abilities of his horse to manage 2,000 head of cattle over 10,000 acres in the Flint Hills, just outside Eureka, Kansas",
-  OutputFormat: "mp3",
-  VoiceId: "Joanna",
-};
+
 server.get("/", (req, res) => {
   res.status(200).send("API is working");
 });
 server.post("/", (req, res) => {
-  // Polly.synthesizeSpeech(input, (err, data) => {
-  //   if (err) {
-  //     console.log(err);
-  //     return;
-  //   }
-  //   if (data.AudioStream instanceof Buffer) {
-  //     fs.writeFile("hello.mp3", data.AudioStream, (fsErr) => {
-  //       if (fsErr) {
-  //         console.error(fsErr);
-  //         return;
-  //       }
-  //       console.log("Success");
-  //     });k
-  //   }
-  // });
+  const input = {
+    Text: req.body.transcript,
+    OutputFormat: "mp3",
+    VoiceId: "Joanna",
+  };
+  Polly.synthesizeSpeech(input, (err, data) => {
+    if (err) {
+      console.log(err.message);
+    } else if (data) {
+      let s3params = {
+        Body: data.AudioStream,
+        Bucket: "kochnewsaudio",
+        Key: "news2.mp3",
+      };
+      const s3 = new AWS.S3();
+      s3.upload(s3params, function (err, data) {
+        if (err) {
+          console.log(err.message);
+        } else {
+          console.log(data.Location);
+        }
+      });
+    }
+  });
 
   console.log(req.body);
   res.status(200).json(req.body);
