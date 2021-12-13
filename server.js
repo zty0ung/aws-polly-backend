@@ -50,13 +50,13 @@ server.post("/", (req, res) => {
           console.log(err.message);
         } else {
           console.log(data.Location);
+          res.status(200).json(data);
         }
       });
     }
   });
 
   console.log(req.body);
-  res.status(200).json(req.body);
 });
 
 module.exports = server;
