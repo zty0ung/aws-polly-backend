@@ -37,6 +37,7 @@ server.post("/", (req, res) => {
   Polly.synthesizeSpeech(input, (err, data) => {
     if (err) {
       console.log(err.message);
+      res.status(200).json(err);
     } else if (data) {
       let s3params = {
         Body: data.AudioStream,
