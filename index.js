@@ -1,4 +1,5 @@
 // const serverless = require('serverless-http');
+require("dotenv").config();
 const server = require("./server.js");
 
 const port = process.env.PORT || 5000;
