@@ -42,7 +42,7 @@ server.post("/", (req, res) => {
       let s3params = {
         Body: data.AudioStream,
         Bucket: "kochnewsaudio",
-        Key: "news2.mp3",
+        Key: `${req.body.title}.mp3`,
       };
       const s3 = new AWS.S3();
       s3.upload(s3params, function (err, data) {
