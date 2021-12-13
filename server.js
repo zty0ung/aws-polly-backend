@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const AWS = require("aws-sdk");
-
 // const axios = require("axios");
 const server = express();
 // const httpResponse = require('./httpResponseHelper');
@@ -24,10 +23,6 @@ server.use(function (req, res, next) {
 
 const Polly = new AWS.Polly({
   region: "us-east-1",
-  credentials: new AWS.Credentials(
-    process.env.AWS_ACCESS_KEY_ID,
-    process.env.AWS_SECRET_ACCESS_KEY
-  ),
 });
 
 server.get("/", (req, res) => {
@@ -48,12 +43,7 @@ server.post("/", (req, res) => {
         Bucket: "kochnewsaudio",
         Key: `${req.body.title}.mp3`,
       };
-      const s3 = new AWS.S3({
-        credentials: new AWS.Credentials(
-          process.env.AWS_ACCESS_KEY_ID,
-          process.env.AWS_SECRET_ACCESS_KEY
-        ),
-      });
+      const s3 = new AWS.S3();
       s3.upload(s3params, function (err, data) {
         if (err) {
           console.log(err.message);
