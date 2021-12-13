@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const fs = require("fs");
 const AWS = require("aws-sdk");
 // const axios = require("axios");
 const server = express();
@@ -33,6 +32,7 @@ server.post("/", (req, res) => {
     Text: req.body.transcript,
     OutputFormat: "mp3",
     VoiceId: "Joanna",
+    LexiconNames: ["Koch"],
   };
   Polly.synthesizeSpeech(input, (err, data) => {
     if (err) {
