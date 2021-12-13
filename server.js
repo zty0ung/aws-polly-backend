@@ -33,6 +33,7 @@ server.post("/", (req, res) => {
     OutputFormat: "mp3",
     VoiceId: "Joanna",
     LexiconNames: ["Koch"],
+    Engine: "neural",
   };
   Polly.synthesizeSpeech(input, (err, data) => {
     if (err) {
