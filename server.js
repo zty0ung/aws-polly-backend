@@ -69,7 +69,7 @@ server.post("/azure", (req, res) => {
   );
   speechConfig.speechSynthesisOutputFormat =
     sdk.SpeechSynthesisOutputFormat.Audio48Khz192KBitRateMonoMp3;
-  SpeechConfig.speechSynthesisVoiceName = "en-US-SaraNeural";
+  speechConfig.speechSynthesisVoiceName = "en-US-SaraNeural";
   const synthesizer = new sdk.SpeechSynthesizer(speechConfig, undefined);
   synthesizer.speakTextAsync(
     req.body.transcript,
